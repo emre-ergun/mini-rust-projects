@@ -78,7 +78,7 @@ impl Game {
         }
     }
 
-    pub fn update(mut self, delta_time: f64) {
+    pub fn update(&mut self, delta_time: f64) {
         self.waiting_time += delta_time;
 
         if self.game_over {
