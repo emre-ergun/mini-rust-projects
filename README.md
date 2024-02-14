@@ -8,3 +8,4 @@ Each project will be listed below with the hyperlink:
 3. [Chat Application](/chat)
 4. [CLI Toy Blockchain](/blockchain)
 5. [Web API](/webapi)
+6. [Containerize an Application](/containerization_with_docker/)
