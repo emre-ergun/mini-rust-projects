@@ -11,3 +11,4 @@ Each project will be listed below with the hyperlink:
 6. [Containerize an Application](/containerization_with_docker/)
 7. [Web Assembly with Rust](/wasm_rust/)
 8. [CLI Exercises](/cli_exercises/)
+9. [Web Development](/web_development)
