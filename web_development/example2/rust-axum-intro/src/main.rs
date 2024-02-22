@@ -1,5 +1,10 @@
 #![allow(dead_code)]
 
+mod error;
+mod web;
+
+use crate::error::{Result, Error};
+
 use std::net::SocketAddr;
 
 use axum::extract::{Path, Query};
@@ -13,6 +18,7 @@ use tower_http::services::ServeDir;
 async fn main() {
     let route_all = axum::Router::new()
         .merge(routes_hello())
+        .merge(web::routes_login::routes())
         .fallback_service(routes_static());
     // region: Start Server
     let addr = SocketAddr::from(([127, 0, 0, 1], 8080));
