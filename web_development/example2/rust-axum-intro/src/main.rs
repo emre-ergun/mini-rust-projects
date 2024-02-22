@@ -4,24 +4,39 @@ use std::net::SocketAddr;
 
 use axum::extract::{Path, Query};
 use axum::response::{Html, IntoResponse};
-use axum::routing::get;
+use axum::routing::{get, get_service};
+use axum::Router;
 use serde::Deserialize;
+use tower_http::services::ServeDir;
 
 #[tokio::main]
 async fn main() {
-    let route_hello = axum::Router::new()
-        .route("/hello", get(handler_hello))
-        .route("/hello2/:name", get(handler_hello2));
-
+    let route_all = axum::Router::new()
+        .merge(routes_hello())
+        .fallback_service(routes_static());
+    // region: Start Server
     let addr = SocketAddr::from(([127, 0, 0, 1], 8080));
     println!("Server will be listening on {addr}");
     let listener = tokio::net::TcpListener::bind(addr)
         .await
         .expect("Could not bind!");
-    axum::serve(listener, route_hello)
+    axum::serve(listener, route_all)
         .await
         .expect("Could not started");
+    // endregion
 }
+
+fn routes_static() -> Router {
+    Router::new().nest_service("/", get_service(ServeDir::new("./")))
+}
+
+// region: Routes Hello
+fn routes_hello() -> Router {
+    Router::new()
+        .route("/hello", get(handler_hello))
+        .route("/hello2/:name", get(handler_hello2))
+}
+// endregion
 
 #[derive(Debug, Deserialize)]
 struct HelloParams {
@@ -37,6 +52,6 @@ async fn handler_hello(Query(params): Query<HelloParams>) -> impl IntoResponse {
 }
 
 async fn handler_hello2(Path(name): Path<String>) -> impl IntoResponse {
-    println!("->> {:<12} - handler_hello - {name:?}", "HANDLER");
+    println!("->> {:<12} - handler_hello1 - {name:?}", "HANDLER");
     Html(format!("Hello <strong>{name}!</strong>"))
 }
