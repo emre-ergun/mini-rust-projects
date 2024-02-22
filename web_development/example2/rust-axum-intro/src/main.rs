@@ -3,8 +3,6 @@
 mod error;
 mod web;
 
-use crate::error::{Result, Error};
-
 use std::net::SocketAddr;
 
 use axum::extract::{Path, Query};
