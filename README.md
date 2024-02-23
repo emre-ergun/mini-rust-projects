@@ -12,3 +12,4 @@ Each project will be listed below with the hyperlink:
 7. [Web Assembly with Rust](/wasm_rust/)
 8. [CLI Exercises](/cli_exercises/)
 9. [Web Development](/web_development)
+10. [Bootcamp Examples](/bootcamp)
