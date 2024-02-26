@@ -73,11 +73,19 @@ fn main() {
 
     let house = House {};
     let object = create_paintable_object();
+    let object1 = create_paintable_object_condition(false);
+
+    let paintable_objects: Vec<&dyn Paint> = vec![&car, &house];
 
     paint_red(&car);
     paint_red(&house);
     paint_red(&object);
     paint_vehicle_red(&car);
+    paint_red1(object1.as_ref());
+}
+
+fn paint_red1(object: &dyn Paint) {
+    object.paint("red".to_owned());
 }
 
 fn paint_red<T: Paint>(object: &T) {
@@ -104,4 +112,18 @@ where
 
 fn create_paintable_object() -> impl Paint {
     House {}
+}
+
+fn create_paintable_object_condition(vehicle: bool) -> Box<dyn Paint> {
+    if vehicle {
+        Box::new(House {})
+    } else {
+        Box::new(Car {
+            info: VehicleInfo {
+                make: "BMW".to_owned(),
+                model: "i5".to_owned(),
+                year: 1999,
+            }
+        })
+    }
 }
