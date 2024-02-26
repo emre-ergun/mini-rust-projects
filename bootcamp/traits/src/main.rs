@@ -52,7 +52,21 @@ impl Paint for House {
 }
 
 fn main() {
-    println!("Hello, world!");
+    let car = Car {
+        info: VehicleInfo {
+            make: "Honda".to_owned(),
+            model: "Civic".to_owned(),
+            year: 1995,
+        },
+    };
+
+    let house = House {};
+    let object = create_paintable_object();
+
+    paint_red(&car);
+    paint_red(&house);
+    paint_red(&object);
+    paint_vehicle_red(&car);
 }
 
 fn paint_red<T: Paint>(object: &T) {
@@ -63,6 +77,20 @@ fn paint_red2(object: &impl Paint) {
     object.paint("red".to_owned());
 }
 
-fn paint_red3<T>(object: &T) where T: Paint {
+fn paint_red3<T>(object: &T)
+where
+    T: Paint,
+{
     object.paint("red".to_owned());
+}
+
+fn paint_vehicle_red<T>(vehicle: &T)
+where
+    T: Park + Paint,
+{
+    vehicle.paint("red".to_owned());
+}
+
+fn create_paintable_object() -> impl Paint {
+    House {}
 }
