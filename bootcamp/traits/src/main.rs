@@ -1,3 +1,14 @@
+// here Paint is supertrait for Vehicle
+// any type implementing Vehicle trait must implement Paint trait
+trait Vehicle: Paint + AnotherTrait {
+    // associated function
+    fn get_default_color() -> String {
+        "block".to_owned()
+    }
+}
+
+trait AnotherTrait {}
+
 trait Park {
     fn park(&self);
 }
