@@ -30,5 +30,5 @@
    1. If an argument has to be used we can specify it by using required method with boolean true.
 8. help()
    1. It is used to add description for the argument to show up along with help menu
-9.  conflicts_with()
+9. conflicts_with()
    1. We can add one of other arguments as a conflicted argument which can not be used together anymore
