@@ -1,3 +1,5 @@
+use std::ascii::AsciiExt;
+
 use clap::{command, Arg, ArgGroup, Command};
 fn main() {
     let match_result = command!()
@@ -38,4 +40,16 @@ fn main() {
         )
         .version("v0.1.0")
         .get_matches();
+
+    println!("{}", match_result.get_one::<String>("fluffy").unwrap());
+
+    if let Some(petname_args) = match_result.subcommand_matches("register-pet") {
+        let pet_name = petname_args.get_one::<String>("petname").unwrap();
+        println!("pet name: {pet_name}");
+    } else if let Some(person_args) = match_result.subcommand_matches("register-person") {
+        let first_name = person_args.get_one::<String>("firstname").unwrap();
+        let last_name = person_args.get_one::<String>("lastname").unwrap();
+        println!("Person: {first_name} {last_name}");
+    }
+    
 }
